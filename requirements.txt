@@ -3,4 +3,4 @@ pandas
 streamlit-aggrid
 plotly
 Pillow
-openxyl
+openpyxl
