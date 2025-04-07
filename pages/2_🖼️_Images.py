@@ -6,6 +6,39 @@ import io
 
 st.set_page_config(page_title="Images", page_icon="🖼️")
 
+# CSS with proper image containment
+st.markdown(
+    """
+    <style>
+    .main .block-container {
+        max-width: 90%;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+
+    .image-container {
+        border: 2px solid #4a4a4a;
+        border-radius: 10px;
+        padding: 10px;
+        margin: 10px 0;
+        transition: transform 0.2s;
+        overflow: hidden;
+    }
+
+    .image-container:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .image-container img {
+        width: 100% !important;
+        height: auto !important;
+        border-radius: 5px;
+    }
+    </style>
+    """, unsafe_allow_html=True
+)
+
 def img_to_bytes(img_path):
     img = Image.open(img_path)
     img = img.resize((800, 400))  # Optional: Set consistent dimensions
@@ -20,37 +53,6 @@ def image():
     df = sheets["images"]
     
     selected_station = st.session_state.get("selected_station", "Nadda")
-    
-    # CSS with proper image containment
-    st.markdown("""
-    <style>
-    .main .block-container {
-        max-width: 90%;
-        padding-left: 2rem;
-        padding-right: 2rem;
-    }
-    
-    .image-container {
-        border: 2px solid #4a4a4a;
-        border-radius: 10px;
-        padding: 15px;
-        margin: 10px 0;
-        transition: transform 0.2s;
-        overflow: hidden;
-    }
-    
-    .image-container:hover {
-        transform: scale(1.02);
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    }
-    
-    .image-container img {
-        width: 100% !important;
-        height: auto !important;
-        border-radius: 5px;
-    }
-    </style>
-    """, unsafe_allow_html=True)
 
     image_folder = "images"
     image_files = df["image"]
@@ -62,7 +64,7 @@ def image():
             {selected_station} Plan View
         </p>
         """
-        st.image(os.path.join(image_folder, image_files[0]), use_column_width=True)
+        st.image(os.path.join(image_folder, image_files[0]), use_container_width=True)
         st.markdown(caption_html, unsafe_allow_html=True)
 
     # Progress photos grid

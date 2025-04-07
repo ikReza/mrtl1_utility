@@ -131,22 +131,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    
-footer_css = """
-    <style>
-        .footer {
-            position: fixed;
-            bottom: 10px;
-            right: 20px;
-            font-size: 14px;
-            color: gray;
-        }
-    </style>
-"""
-
-# Display the footer with the creator's name
-footer_text = '<p class="footer">Created by <b>Ibrahim Kaiser</b></p>'
-
-# Inject the CSS and HTML into Streamlit
-st.markdown(footer_css, unsafe_allow_html=True)
-st.markdown(footer_text, unsafe_allow_html=True)

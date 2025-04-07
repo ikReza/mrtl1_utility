@@ -11,7 +11,7 @@ st.set_page_config(page_title="Plotting", page_icon="📈")
 st.markdown(
     """
     <style>
-    .main .block-container {
+    [data-testid="stAppViewContainer"] > .main {
         max-width: 90%;
         padding-left: 2rem;
         padding-right: 2rem;
