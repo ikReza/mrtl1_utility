@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-def plotSCurve():
+def plotSCurve(df):
     st.write("### 📈 Progress S-Curve")
     sheets = st.session_state.sheets
     df = sheets["Progress"]

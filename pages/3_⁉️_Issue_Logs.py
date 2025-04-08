@@ -18,8 +18,8 @@ st.markdown(
 )
 
 def issues():
-    st.title("Issue Page")
-    st.write("Welcome to the issue logs page!")
+    selected_station = st.session_state.get("selected_station", "No Station Selected")
+    st.title(f"📊 {selected_station.upper()} Station Issue Logs")
     
     sheets = st.session_state.sheets
     
