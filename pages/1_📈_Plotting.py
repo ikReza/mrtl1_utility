@@ -5,7 +5,7 @@ import plotly.express as px
 from plot_sCurve import plotSCurve
 from plot_Agency import plotAgencyBar, plotCivilWork
 
-st.set_page_config(page_title="Plotting", page_icon="📈")
+st.set_page_config(page_title="Plotting", page_icon="📈", layout="wide")
 
 # Inject custom CSS to widen the main container and reduce padding
 st.markdown(
@@ -21,9 +21,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-def plot():
-    sheets = st.session_state.sheets
-    df = sheets["Corridor Work"]
+def plot(df):
     
     # Grouping Data by Corridor (East vs. West)
     east_work = df[df["Corridor"] == "East"].sum()
@@ -87,9 +85,9 @@ def plot():
     
     st.plotly_chart(fig1)
     
-    
-if __name__ == "__main__":
-    plot()
-    plotSCurve()
-    plotAgencyBar()
-    plotCivilWork()
+sheets = st.session_state.sheets
+
+plot(sheets["Corridor Work"])
+plotSCurve(sheets["Progress"])
+plotAgencyBar(sheets["Corridor Work"])
+plotCivilWork(sheets["Corridor Work"])

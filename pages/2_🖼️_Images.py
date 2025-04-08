@@ -4,7 +4,7 @@ import os
 import base64
 import io
 
-st.set_page_config(page_title="Images", page_icon="🖼️")
+st.set_page_config(page_title="Images", page_icon="🖼️", layout="wide")
 
 # CSS with proper image containment
 st.markdown(
@@ -49,10 +49,11 @@ def img_to_bytes(img_path):
 def image():
     st.title("Construction Progress Gallery")
     
+    selected_station = st.session_state.get("selected_station", "No Station Selected")
+    st.title(f"📌 Station: {selected_station.upper()}")
+
     sheets = st.session_state.sheets
     df = sheets["images"]
-    
-    selected_station = st.session_state.get("selected_station", "Nadda")
 
     image_folder = "images"
     image_files = df["image"]

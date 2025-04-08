@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 
-st.set_page_config(page_title="Issue Logs", page_icon="⁉️")
+st.set_page_config(page_title="Issue Logs", page_icon="⁉️", layout="wide")
 
 # Inject custom CSS to widen the main container and reduce padding
 st.markdown(
