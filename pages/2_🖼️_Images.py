@@ -46,9 +46,7 @@ def img_to_bytes(img_path):
     img.save(img_bytes, format="PNG")
     return base64.b64encode(img_bytes.getvalue()).decode()
 
-def image():
-    st.title("Construction Progress Gallery")
-    
+def image(): 
     selected_station = st.session_state.get("selected_station", "No Station Selected")
     st.title(f"📌 Station: {selected_station.upper()}")
 
