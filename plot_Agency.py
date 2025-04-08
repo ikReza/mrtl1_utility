@@ -2,10 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-sheets = st.session_state.sheets
-df = sheets["Corridor Work"]
-
-def plotAgencyBar():
+def plotAgencyBar(df):
     st.write("### 📈 Agency-wise Bar Chart")
     
     # --- Filter Data: Only include Utility Laying rows ---
@@ -70,7 +67,7 @@ def plotAgencyBar():
     st.plotly_chart(fig_east)
     st.plotly_chart(fig_west)
 
-def plotCivilWork():
+def plotCivilWork(df):
     st.write("### 🛣️ Civil Work Bar Chart")
     
     df_filtered = df[df["Task Group"].isin(["Excavation", "Road Reinstatement"])].copy()

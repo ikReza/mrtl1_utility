@@ -111,6 +111,10 @@ def main():
     gb.configure_default_column(editable=False, groupable=True)
     gb.configure_column("Grouped Task", rowGroup=True, hide=True, rowGroupOpenByDefault=True)  # Group by this column
     gb.configure_column("Task Group", hide=True)  # Hide original task group column
+    # Custom widths
+    gb.configure_column("Progress (%)", hide=True)
+    gb.configure_grid_options(domLayout='autoHeight')
+
     AgGrid(filtered_data, gridOptions=gb.build(), custom_css=custom_css, enable_enterprise_modules=True, height=600, theme="alpine")
     
     # Display progress charts
