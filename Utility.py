@@ -37,13 +37,14 @@ custom_css = {
     }
 }
 
+# Store current page path to handle reloads
+if 'main_page' not in st.session_state:
+    st.session_state.main_page = "Utility.py"
+
 station_files = {
     "Aftab Nagar": "s05_aftab_nagar_progress.xlsx",
-    "Nadda": "nadda_progress.xlsx",
-    "Natun Bazar": "natun_bazar_progress.xlsx",
-    "Badda": "badda_progress.xlsx",
-    "Rampura": "rampura_progress.xlsx",
-    "Malibagh": "malibagh_progress.xlsx"
+    "Badda": "s06_badda_progress.xlsx",
+    "North Badda": "s07_north_badda_progress.xlsx"
 }
 
 st.sidebar.title("Select Station")
