@@ -4,3 +4,5 @@ streamlit-aggrid
 plotly
 Pillow
 openpyxl
+folium
+streamlit_folium
