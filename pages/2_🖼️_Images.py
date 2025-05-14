@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 from PIL import Image
 import os
 import base64
@@ -55,7 +56,9 @@ def image():
 
     image_folder = "images"
     image_files = df["image"]
-
+    df["update_date"] = pd.to_datetime(df["update_date"]).dt.strftime("%d-%b-%Y")
+    image_dates = df["update_date"]
+    
     # Full-width plan view
     with st.container():
         caption_html = f"""
@@ -68,12 +71,15 @@ def image():
 
     # Progress photos grid
     remaining_images = image_files[1:]
+    remaining_dates = image_dates[1:]
     
     for i in range(0, len(remaining_images), 2):
         cols = st.columns(2)
         row_images = remaining_images[i:i+2]
-        
-        for col_idx, img_file in enumerate(row_images):
+        row_dates = remaining_dates[i:i+2]
+
+        for col_idx, (img_file, image_date) in enumerate(zip(row_images, row_dates)):
+            print(f"Column Index: {col_idx}, Image File: {img_file}, Date: {image_date}")
             base_name = os.path.splitext(os.path.basename(img_file))[0]
             img_path = os.path.join(image_folder, img_file)
             with cols[col_idx]:
@@ -83,10 +89,15 @@ def image():
                     
                     # Create HTML block with container and image
                     html = f"""
-                    <div class="image-container">
-                        <img src="data:image/png;base64,{b64_image}">
-                        <p style="text-align: center; margin: 10px 0 0 0; font-weight: bold; font-size: 24px;">
-                            Section: {base_name.upper()}
+                    <div>
+                        <div class="image-container">
+                            <img src="data:image/png;base64,{b64_image}">
+                            <p style="text-align: center; margin: 10px 0 0 0; font-weight: bold; font-size: 24px;">
+                                Section: {base_name.upper()}
+                            </p>                           
+                        </div>
+                        <p style="text-align: right; margin: 5px 0 0 0; font-size: 12px; color: #666; font-style: italic;">
+                            Last Updated: {image_date}
                         </p>
                     </div>
                     """
