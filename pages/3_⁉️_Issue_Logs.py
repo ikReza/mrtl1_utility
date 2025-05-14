@@ -52,18 +52,22 @@ if not st.session_state.authenticated:
 
 def issues():
     selected_station = st.session_state.get("selected_station", "No Station Selected")
-    st.title(f"⌚ {selected_station.upper()} Station Issue Logs")
+    st.header(f"⌚ {selected_station.upper()} Station Issue Logs")
     
     sheets = st.session_state.sheets
     
     df = sheets["Issue Log"]
+
+    def highlight_rows(row):
+        return ['background-color: #FFDDC1'] * len(row) if row.Status == "Pending" else ['background-color: #D5E8D4'] * len(row)
+
     # Format the date columns
     if "Created on" in df.columns:
         df["Created on"] = pd.to_datetime(df["Created on"]).dt.strftime("%d-%b-%Y")
     if 'Resolved on' in df.columns:
         df["Resolved on"] = pd.to_datetime(df["Resolved on"]).dt.strftime("%d-%b-%Y")
     
-    st.dataframe(df, hide_index=True)
+    st.dataframe(df.style.apply(highlight_rows, axis=1), hide_index=True)
     
 if __name__ == "__main__":
     issues()

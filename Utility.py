@@ -62,7 +62,7 @@ if "selected_station" not in st.session_state or st.session_state.selected_stati
     st.session_state.sheets = pd.read_excel(file_path, sheet_name=None)
 
 # =============================================================================
-map = folium.Map(location=[23.7985, 90.4256], zoom_start=14, tiles="CartoDB Positron", control_scale=True, prefer_canvas=True)
+map = folium.Map(location=[23.7985, 90.4256], zoom_start=14, tiles="CartoDB Positron", control_scale=True)
 # geojson_path = "alignment.geojson"
 # folium.GeoJson(geojson_path, name="geojson").add_to(map)
 st_folium(map, height=500, use_container_width=True)

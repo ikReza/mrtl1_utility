@@ -52,7 +52,7 @@ def plot(df):
     
     # Streamlit App Layout
     selected_station = st.session_state.get("selected_station", "No Station Selected")
-    st.title(f"📊 {selected_station.upper()} Station Work Progress Visualization")
+    st.header(f"📊 {selected_station.upper()} Station Work Progress Visualization")
     
     # First Bar Chart: East Side vs. West Side vs. Total Work
     st.write("### 🏗️ Work Progress by Corridor (East vs. West)")
