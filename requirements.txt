@@ -6,3 +6,4 @@ Pillow
 openpyxl
 folium
 streamlit_folium
+matplotlib
