@@ -3,6 +3,8 @@ import pandas as pd
 import folium
 from streamlit_folium import st_folium
 from st_aggrid import AgGrid, GridOptionsBuilder
+from plot_ProgressBar import plotProgressBar
+
 
 st.set_page_config(
     page_title="Utility Relocation",
@@ -44,6 +46,7 @@ if 'main_page' not in st.session_state:
     st.session_state.main_page = "Utility.py"
 
 station_files = {
+    "Natun Bazar": "s08_natun_bazar_progress.xlsx",
     "Aftab Nagar": "s05_aftab_nagar_progress.xlsx",
     "Badda": "s06_badda_progress.xlsx",
     "North Badda": "s07_north_badda_progress.xlsx"
@@ -61,12 +64,8 @@ if "selected_station" not in st.session_state or st.session_state.selected_stati
     # Load all sheets from Excel file into a dictionary
     st.session_state.sheets = pd.read_excel(file_path, sheet_name=None)
 
-# =============================================================================
-map = folium.Map(location=[23.7985, 90.4256], zoom_start=14, tiles="CartoDB Positron", control_scale=True)
-# geojson_path = "alignment.geojson"
-# folium.GeoJson(geojson_path, name="geojson").add_to(map)
-st_folium(map, height=500, use_container_width=True)
-# =============================================================================
+progressFile = pd.read_excel("data/progress.xlsx")
+plotProgressBar(progressFile)
 
 def main():    
     sheets = st.session_state.sheets
@@ -118,24 +117,27 @@ def main():
     # Custom widths
     gb.configure_column("Progress (%)", hide=True)
     gb.configure_grid_options(domLayout='autoHeight')
-
+    
     AgGrid(filtered_data, gridOptions=gb.build(), custom_css=custom_css, enable_enterprise_modules=True, height=600, theme="alpine")
-    
-    # Display progress charts
-    st.write("### Progress Visualization")
-    for index, row in filtered_data.iterrows():
-        work_name = row['Work Breakdown']
-        progress_percentage = row['Progress (%)']
-        col1, col2, col3 = st.columns([1, 2, 1])  # Create three columns for layout
-        with col1:
-            st.write(work_name + ":")  # Work name in the first column
-    
-        with col2:
-            st.progress(progress_percentage / 100) # Progress bar in the second column
-    
-        with col3:
-            st.write(f"{round(progress_percentage,1)}%")  # Percentage in the third column
 
 
 if __name__ == "__main__":
     main()
+    
+footer_css = """
+    <style>
+        .footer {
+            position: fixed;
+            bottom: 10px;
+            font-size: 14px;
+            color: gray;
+        }
+    </style>
+"""
+
+# Display the footer with the creator's name
+footer_text = '<p class="footer"><b>© July 2025</b></p>'
+
+# Inject the CSS and HTML into Streamlit
+st.markdown(footer_css, unsafe_allow_html=True)
+st.markdown(footer_text, unsafe_allow_html=True)
